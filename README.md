@@ -67,6 +67,23 @@ Professionelle, plattformübergreifende Textbaustein-Software für Juristen, Kan
 
 - Für Windows kann ein ähnliches Prinzip mit [AutoHotkey](https://www.autohotkey.com/) genutzt werden (Exportfunktion in Planung).
 
+## Automatischer Build & Installer-Download (GitHub Actions)
+
+Mit jedem Push auf den `main`-Branch werden automatisch plattformübergreifende Installer (Windows & macOS) gebaut und als Download bereitgestellt.
+
+- Die fertigen Installer findest du nach jedem Build unter [GitHub Actions → Artifacts](https://github.com/MelchiorForster/Jura---TextEdit/actions).
+- macOS-Installer (DMG) werden auf echten Macs via GitHub Actions gebaut.
+- Windows-Installer (EXE) werden auf Windows-Runnern gebaut.
+
+**Hinweis:**
+
+- macOS-Installer können nur auf macOS (bzw. über GitHub Actions) gebaut werden, nicht unter Windows/Linux.
+- Die Hammerspoon-Exportfunktion ist nur für macOS relevant und wird unter Windows ausgeblendet.
+
+### Status-Badge
+
+![Build Status](https://github.com/MelchiorForster/Jura---TextEdit/actions/workflows/build.yml/badge.svg)
+
 ## Roadmap
 
 - Settings-Feature (API-Key, Theme, Hotkey-Konfiguration)

@@ -4,8 +4,9 @@
   "description": "Textbaustein-Software mit Electron",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --mac --x64 --arm64"
+  "start": "electron .",
+  "dist-mac": "electron-builder --mac --x64 --arm64",
+  "dist-win": "electron-builder --win --x64"
   },
   "author": "Melchior",
   "license": "MIT",

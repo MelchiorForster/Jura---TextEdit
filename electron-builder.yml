@@ -9,3 +9,4 @@ mac:
     - dmg
   category: public.app-category.productivity
   icon: build/icon.icns
+# Keine "publish"-Option gesetzt – es werden keine Releases auf GitHub erstellt, sondern nur lokale Artefakte gebaut.

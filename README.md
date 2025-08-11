@@ -67,22 +67,21 @@ Professionelle, plattformübergreifende Textbaustein-Software für Juristen, Kan
 
 - Für Windows kann ein ähnliches Prinzip mit [AutoHotkey](https://www.autohotkey.com/) genutzt werden (Exportfunktion in Planung).
 
-## Automatischer Build & Installer-Download (GitHub Actions)
+## macOS-Installer erstellen
 
-Mit jedem Push auf den `main`-Branch werden automatisch plattformübergreifende Installer (Windows & macOS) gebaut und als Download bereitgestellt.
+Um einen Installer für macOS zu bauen, öffne das Projekt auf einem Mac und führe im Projektverzeichnis aus:
 
-- Die fertigen Installer findest du nach jedem Build unter [GitHub Actions → Artifacts](https://github.com/MelchiorForster/Jura---TextEdit/actions).
-- macOS-Installer (DMG) werden auf echten Macs via GitHub Actions gebaut.
-- Windows-Installer (EXE) werden auf Windows-Runnern gebaut.
+```bash
+npm install
+npm run dist-mac
+```
+
+Die fertige DMG-Datei findest du anschließend im `dist/`-Ordner.
 
 **Hinweis:**
 
-- macOS-Installer können nur auf macOS (bzw. über GitHub Actions) gebaut werden, nicht unter Windows/Linux.
+- macOS-Installer können nur auf einem Mac gebaut werden, nicht unter Windows/Linux.
 - Die Hammerspoon-Exportfunktion ist nur für macOS relevant und wird unter Windows ausgeblendet.
-
-### Status-Badge
-
-![Build Status](https://github.com/MelchiorForster/Jura---TextEdit/actions/workflows/build.yml/badge.svg)
 
 ## Roadmap
 

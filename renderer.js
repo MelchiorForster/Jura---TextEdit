@@ -158,11 +158,9 @@ function renderList() {
   });
 }
 
-const { ipcRenderer } = require("electron");
-
 document.addEventListener("DOMContentLoaded", async () => {
   // Eigene Bausteine laden
-  const eigene = await ipcRenderer.invoke("eigeneBausteine:load");
+  const eigene = await window.electronAPI.loadEigeneBausteine();
   if (Array.isArray(eigene)) {
     kategorien[0].bausteine = eigene;
   }
@@ -175,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!name || !text) return;
     kategorien[0].bausteine.push({ name, text });
     // Speichern
-    await ipcRenderer.invoke("eigeneBausteine:save", kategorien[0].bausteine);
+    await window.electronAPI.saveEigeneBausteine(kategorien[0].bausteine);
     document.getElementById("new-baustein-name").value = "";
     document.getElementById("new-baustein-text").value = "";
     if (aktuelleKategorie === 0) renderList();
@@ -190,46 +188,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     navigator.clipboard.writeText(text);
   };
 
-  // Hotkey-Unterstützung: Auf IPC-Event reagieren (immer erster Baustein der aktuellen Kategorie)
-  ipcRenderer.on("hotkey-copy", () => {
-    const b = kategorien[aktuelleKategorie].bausteine[0];
-    if (b) {
-      document.getElementById("baustein-text").value = b.text;
-      navigator.clipboard.writeText(b.text);
-    }
-  });
-
-  // Hotkey für Kategorie: Kategorie wechseln und ersten Baustein kopieren
-  ipcRenderer.on("hotkey-category", (event, catIdx) => {
-    if (catIdx >= 0 && catIdx < kategorien.length) {
-      aktuelleKategorie = catIdx;
-      document.getElementById("kategorie-select").value = catIdx;
-      renderList();
-      const b = kategorien[catIdx].bausteine[0];
-      if (b) {
-        document.getElementById("baustein-text").value = b.text;
-        navigator.clipboard.writeText(b.text);
-      }
-    }
-  });
-
-  // Hotkey für Kategorie+Baustein: Kategorie und Baustein auswählen und kopieren
-  ipcRenderer.on("hotkey-baustein", (event, data) => {
-    const { catIdx, bIdx } = data;
-    if (
-      catIdx >= 0 &&
-      catIdx < kategorien.length &&
-      bIdx >= 0 &&
-      bIdx < kategorien[catIdx].bausteine.length
-    ) {
-      aktuelleKategorie = catIdx;
-      document.getElementById("kategorie-select").value = catIdx;
-      renderList();
-      const b = kategorien[catIdx].bausteine[bIdx];
-      if (b) {
-        document.getElementById("baustein-text").value = b.text;
-        navigator.clipboard.writeText(b.text);
-      }
-    }
-  });
+  // ...alle IPC-Events laufen jetzt über window.electronAPI...
 });

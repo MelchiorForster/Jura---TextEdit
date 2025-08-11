@@ -1,0 +1,33 @@
+{
+  "name": "textbaustein-electron",
+  "version": "1.0.0",
+  "description": "Textbaustein-Software mit Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --mac --x64 --arm64"
+  },
+  "author": "Melchior",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.juratextedit.app",
+    "productName": "Jura-TextEdit",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Electron-Projekt initialisieren",
+			"type": "shell",
+			"command": "npm init -y && npm install --save-dev electron",
+			"args": [],
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

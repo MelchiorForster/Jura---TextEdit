@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=800, initial-scale=1.0" />
+    <title>Jura-TextEdit</title>
+    <style>
+      :root {
+        --bg: #f7f8fa;
+        --fg: #23272e;
+        --accent: #1a2636;
+        --accent2: #3b4a5a;
+        --input-bg: #f0f2f5;
+        --border: #d1d5db;
+        --button-bg: #1a2636;
+        --button-hover: #3b4a5a;
+        --button-text: #fff;
+        --highlight: #e3e7ee;
+      }
+      [data-theme="dark"] {
+        --bg: #10131a;           /* Sehr dunkles Blau-Schwarz */
+        --fg: #f8fafc;           /* Fast weiß, sehr hell */
+        --accent: #00bfae;       /* Kräftiges Türkis als Akzent */
+        --accent2: #1de9b6;      /* Helles Türkis für Akzente */
+        --input-bg: #181e26;     /* Dunkler, aber klarer Input */
+        --border: #1e2633;       /* Deutlich sichtbare Border */
+        --button-bg: #00bfae;    /* Kräftiges Türkis für Buttons */
+        --button-hover: #1de9b6; /* Helles Türkis als Hover für Buttons */
+        --button-text: #23272e;  /* Dunkler Button-Text für Kontrast */
+        --highlight: #18243a;    /* Dunkles, aber abgesetztes Highlight */
+      }
+      body {
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+        margin: 40px auto;
+        max-width: 600px;
+        background: var(--bg);
+        color: var(--fg);
+        transition: background 0.2s, color 0.2s;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px 0 #0001;
+        border: 1px solid var(--border);
+        padding: 32px 32px 24px 32px;
+      }
+      h1 {
+        color: var(--accent);
+        font-size: 2.1rem;
+        letter-spacing: 0.5px;
+        margin-bottom: 18px;
+      }
+      label {
+        font-weight: 500;
+        color: var(--accent2);
+      }
+      select, textarea {
+        background: var(--input-bg);
+        color: var(--fg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 6px 10px;
+        font-size: 1rem;
+        margin-bottom: 8px;
+        transition: border 0.2s;
+      }
+      select:focus, textarea:focus {
+        outline: none;
+        border: 1.5px solid var(--accent2);
+        background: var(--highlight);
+      }
+      ul#baustein-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 18px 0;
+      }
+      ul#baustein-list {
+        padding: 0;
+        margin: 0 0 18px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      ul#baustein-list li {
+        width: 60%;
+        min-width: 120px;
+        max-width: 340px;
+        padding: 2px 8px;
+        margin-bottom: 2px;
+        background: var(--highlight);
+        border-radius: 3px;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        transition: background 0.15s, border 0.15s;
+        box-sizing: border-box;
+        text-align: left;
+        font-size: 0.95rem;
+        line-height: 1.2;
+      }
+      ul#baustein-list li:hover {
+        background: var(--accent2);
+        color: #fff;
+        border: 1px solid var(--accent2);
+      }
+      textarea {
+        width: 100%;
+        min-height: 80px;
+        margin-bottom: 12px;
+        resize: vertical;
+      }
+      button {
+        background: var(--button-bg);
+        color: var(--button-text);
+        border: none;
+        padding: 10px 22px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-top: 6px;
+        margin-bottom: 0;
+        box-shadow: 0 2px 8px 0 #0001;
+        transition: background 0.2s;
+      }
+      button:hover {
+        background: var(--button-hover);
+      }
+      button#theme-toggle {
+        float: right;
+        margin-top: -10px;
+        background: none;
+        color: var(--accent2);
+        box-shadow: none;
+        font-size: 1.3rem;
+        padding: 0 8px;
+      }
+      @media (max-width: 700px) {
+        body {
+          margin: 0;
+          max-width: 100vw;
+          border-radius: 0;
+          padding: 16px 4vw 12px 4vw;
+        }
+      }
+    </style>
+  <body>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <!-- Stilvolles Anwalts-Logo als SVG -->
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="19" cy="19" r="18" stroke="#1a2636" stroke-width="2" fill="#fff"/>
+          <path d="M12 27L19 11L26 27" stroke="#1a2636" stroke-width="2" stroke-linecap="round"/>
+          <path d="M15.5 20H22.5" stroke="#1a2636" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h1 style="margin:0;">Jura-TextEdit</h1>
+      </div>
+      <button id="theme-toggle" title="Hell/Dunkel umschalten" style="font-size:1.5rem;background:none;color:var(--accent2);box-shadow:none;padding:0 8px;">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  <label for="kategorie-select">Kategorie:</label>
+  <select id="kategorie-select" style="margin-bottom: 20px;"></select>
+  <ul id="baustein-list" style="margin-bottom: 20px;"></ul>
+  <textarea id="baustein-text" rows="5" style="width:100%;margin-bottom:10px;resize:vertical;box-sizing:border-box;"></textarea><br>
+  <button id="copy-btn">In Zwischenablage kopieren</button>
+    <!-- Bereich zum Hinzufügen eigener Textbausteine (jetzt ganz unten) -->
+    <div id="add-baustein-box" style="margin-top:28px;display:flex;flex-direction:column;gap:8px;">
+      <input id="new-baustein-name" type="text" placeholder="Name des neuen Textbausteins" style="width:100%;min-width:110px;max-width:340px;padding:6px 8px;border-radius:4px;border:1px solid var(--border);font-size:0.98rem;">
+      <textarea id="new-baustein-text" placeholder="Text des neuen Bausteins" style="width:100%;min-width:120px;min-height:60px;max-width:340px;padding:6px 8px;border-radius:4px;border:1px solid var(--border);font-size:1.05rem;resize:vertical;"></textarea>
+      <button id="add-baustein-btn" style="width:120px;align-self:flex-end;margin-top:4px;">Hinzufügen</button>
+    </div>
+    <button onclick="exportEigeneBausteineHammerspoon()" style="margin-top:18px;width:100%;background:var(--accent2);color:#fff;">Eigene Textbausteine als Hammerspoon-Skript exportieren</button>
+    </div>
+    <script>
+      // Theme Toggle mit stilvollem Icon
+      const themeBtn = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      themeBtn.onclick = () => {
+        const html = document.documentElement;
+        const dark = html.getAttribute("data-theme") === "dark";
+        html.setAttribute("data-theme", dark ? "light" : "dark");
+        themeIcon.textContent = dark ? "🌙" : "☀️";
+        localStorage.setItem("theme", dark ? "light" : "dark");
+      };
+      // Initial Theme
+      (() => {
+        const saved = localStorage.getItem("theme");
+        if (saved === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+          themeIcon.textContent = "☀️";
+        }
+      })();
+    </script>
+  <script src="renderer.js"></script>
+  </body>
+</html>

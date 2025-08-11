@@ -1,0 +1,11 @@
+appId: com.juratextedit.app
+productName: Jura-TextEdit
+files:
+  - "**/*"
+directories:
+  output: dist
+mac:
+  target:
+    - dmg
+  category: public.app-category.productivity
+  icon: build/icon.icns
